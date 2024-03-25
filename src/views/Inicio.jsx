@@ -1,26 +1,25 @@
-//import useSWR from 'swr'
+import useSWR from 'swr'
 import Producto from '../components/Producto'
-//import clienteAxios from '../config/axios'
+import clienteAxios from '../config/axios'
 import useVesuvio from '../hooks/useVesuvio'
-import { productos as data } from '../data/productos'
+//import { productos as data } from '../data/productos'
 
 export default function Inicio() {
 
     const { categoriaActual } = useVesuvio()
 
-    // // Consulta SWR
-    // const token = localStorage.getItem('AUTH_TOKEN');
-    // const fetcher = () => clienteAxios('/api/productos', {
-    //     headers: {
-    //         Authorization: `Bearer ${token}`
-    //     }
-    // }).then(data => data.data)
+    // Consulta SWR
 
-    // const { data, error, isLoading } = useSWR('/api/productos', fetcher, {
-    //     refreshInterval: 1000
-    // })
+    const token = localStorage.getItem('AUTH_TOKEN');
+    const fetcher = () => clienteAxios('/api/productos', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(data => data.data.data)
 
-    // if (isLoading) return 'Cargando...';
+    const { data, error, isLoading } = useSWR('/api/productos', fetcher)
+    if (isLoading) return 'Cargando...';
+
     const productos = data.filter(producto => producto.categoria_id === categoriaActual.id)
 
 

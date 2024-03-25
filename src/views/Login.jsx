@@ -1,30 +1,30 @@
 
-// import { createRef, useState } from 'react'
+import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-//import Alerta from '../components/Alerta';
-//import { useAuth } from '../hooks/useAuth';
+import Alerta from '../components/Alerta';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
 
-    // const emailRef = createRef();
-    // const passwordRef = createRef();
+    const emailRef = createRef();
+    const passwordRef = createRef();
 
-    // const [errores, setErrores] = useState([])
-    // const { login } = useAuth({
-    //     middleware: 'guest',
-    //     url: '/'
-    // })
+    const [errores, setErrores] = useState([])
+    const { login } = useAuth({
+        middleware: 'guest',
+        url: '/'
+    })
 
-    // const handleSubmit = async e => {
-    //     e.preventDefault();
+    const handleSubmit = async e => {
+        e.preventDefault();
 
-    //     const datos = {
-    //         email: emailRef.current.value,
-    //         password: passwordRef.current.value,
-    //     }
+        const datos = {
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+        }
 
-    //     login(datos, setErrores)
-    // }
+        login(datos, setErrores)
+    }
 
 
     return (
@@ -34,11 +34,11 @@ export default function Login() {
 
             <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
                 <form
-                // onSubmit={handleSubmit}
-                // noValidate
+                    onSubmit={handleSubmit}
+                    noValidate
                 >
 
-                    {/* {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>) : null} */}
+                    {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>) : null}
 
                     <div className="mb-4">
                         <label
@@ -51,7 +51,7 @@ export default function Login() {
                             className="mt-2 w-full p-3 bg-gray-50"
                             name="email"
                             placeholder="Tu Email"
-                        // ref={emailRef}
+                            ref={emailRef}
                         />
                     </div>
 
@@ -66,7 +66,7 @@ export default function Login() {
                             className="mt-2 w-full p-3 bg-gray-50"
                             name="password"
                             placeholder="Tu Password"
-                        //ref={passwordRef}
+                            ref={passwordRef}
                         />
                     </div>
 

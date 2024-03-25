@@ -1,20 +1,19 @@
 import { formatearDinero } from "../helpers";
 import useVesuvio from "../hooks/useVesuvio";
-//import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import ResumenProducto from "./ResumenProducto";
 
 export default function Resumen() {
-    //const { pedido, total, handleSubmitNuevaOrden } = useVesuvio();
-    const { pedido, total } = useVesuvio();
-    //const { logout } = useAuth({})
+    const { pedido, total, handleSubmitNuevaOrden } = useVesuvio();
+    const { logout } = useAuth({})
 
     const comprobarPedido = () => pedido.length === 0;
 
-    // const handleSubmit = e => {
-    //     e.preventDefault();
+    const handleSubmit = e => {
+        e.preventDefault();
 
-    //     handleSubmitNuevaOrden();
-    // }
+        handleSubmitNuevaOrden();
+    }
 
     return (
         <aside className="w-72 h-screen overflow-y-scroll p-5">
@@ -47,7 +46,7 @@ export default function Resumen() {
 
             <form
                 className="w-full"
-            //onSubmit={handleSubmit}
+                onSubmit={handleSubmit}
             >
                 <div className="mt-5">
                     <input

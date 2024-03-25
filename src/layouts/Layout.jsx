@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar'
 import Resumen from '../components/Resumen'
 import ModalProducto from '../components/ModalProducto'
 import useVesuvio from '../hooks/useVesuvio'
-// import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 
 const customStyles = {
     content: {
@@ -22,7 +22,8 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 export default function Layout() {
-    const { modal, handleClickModal } = useVesuvio();
+    useAuth({ middleware: 'auth' });
+    const { modal } = useVesuvio();
 
     return (
         <>

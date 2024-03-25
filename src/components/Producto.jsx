@@ -1,9 +1,9 @@
 import { formatearDinero } from "../helpers"
 import useVesuvio from "../hooks/useVesuvio"
 
-export default function Producto({ producto }) {
+export default function Producto({ producto, botonAgregar = false, botonDisponible = false }) {
 
-    const { handleClickModal, handleSetProducto } = useVesuvio();
+    const { handleClickModal, handleSetProducto, handleClickProductoAgotado } = useVesuvio();
     const { nombre, imagen, precio } = producto
 
     return (
@@ -21,17 +21,30 @@ export default function Producto({ producto }) {
                     {formatearDinero(precio)}
                 </p>
 
-                <button
-                    type="button"
-                    className="bg-indigo-600 hover:bg-indigo-800
-                    text-white w-full mt-5 p-3 uppercase font-bold"
-                    onClick={() => {
-                        handleClickModal();
-                        handleSetProducto(producto);
-                    }}
-                >
-                    Agregar
-                </button>
+                {botonAgregar && (
+                    <button
+                        type="button"
+                        className="bg-indigo-600 hover:bg-indigo-800
+                        text-white w-full mt-5 p-3 uppercase font-bold"
+                        onClick={() => {
+                            handleClickModal();
+                            handleSetProducto(producto);
+                        }}
+                    >
+                        Agregar
+                    </button>
+                )}
+
+                {botonDisponible && (
+                    <button
+                        type="button"
+                        className="bg-indigo-600 hover:bg-indigo-800
+                        text-white w-full mt-5 p-3 uppercase font-bold"
+                        onClick={() => handleClickProductoAgotado(producto.id)}
+                    >
+                        Producto Agotado
+                    </button>
+                )}
 
             </div>
         </div>
