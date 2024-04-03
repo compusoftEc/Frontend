@@ -8,6 +8,7 @@ import Homepage from './views/Homepage'
 import Ordenes from './views/Ordenes'
 import Productos from './views/Productos'
 import Registro from './views/Registro'
+import SRegistro from './views/SolicitudRegistro'
 import Inicio from './views/Inicio'
 
 const router = createBrowserRouter([
@@ -40,9 +41,13 @@ const router = createBrowserRouter([
                 element: <Login />
             },
             {
+                path: '/auth/Sregistro',
+                element: <SRegistro />
+            },
+            {
                 path: '/auth/registro',
                 element: <Registro />
-            }
+            },
         ]
     },
     {
@@ -56,7 +61,11 @@ const router = createBrowserRouter([
             {
                 path: '/admin/productos',
                 element: <Productos />
-            }
+            },
+            {
+                path: '/admin/registro',
+                element: <Registro />
+            },
         ]
     }
 ])

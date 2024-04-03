@@ -9,18 +9,19 @@ export default function Siderbar() {
 
     return (
         <aside className="md:w-72">
-            <div className="p-4">
+            <div className="p-3">
                 <img
-                    className="w-40"
+                    className="w-35"
                     src="img/logo.svg"
                     alt="Imagen Logo"
                 />
             </div>
-            <p className="my-10 text-xl text-center">Hola:{user?.name}</p>
+            <p className="my-0 text-xl text-center font-black">Bienvenido: {user?.name}</p>
             <div className="mt-10">
                 {categorias.map(categoria => (
                     <Categoria
                         key={categoria.id}
+
                         categoria={categoria}
                     />
                 ))}

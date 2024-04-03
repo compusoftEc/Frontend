@@ -50,7 +50,7 @@ export default function Ordenes() {
                             <span className='font-normal'>{pedido.user.name}</span>
                         </p>
 
-                        <p className='text-lg font-bold text-amber-500'>
+                        <p className='text-lg font-bold text-red-600'>
                             Total a Pagar: {''}
                             <span className='font-normal text-slate-600'>{formatearDinero(pedido.total)}</span>
                         </p>

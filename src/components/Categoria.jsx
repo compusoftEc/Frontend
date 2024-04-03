@@ -6,8 +6,8 @@ export default function Categoria({ categoria }) {
     const { icono, id, nombre } = categoria
 
     return (
-        <div className={`${categoriaActual.id === id ? "bg-amber-400" : 'bg-white'} flex
-        // items-center gap-4 border w-full p-3 hover:bg-amber-400 cursor-pointer`}>
+        <div className={`${categoriaActual.id === id ? "bg-red-600" : 'bg-white'} flex
+        // items-center gap-4 border w-full p-3 hover:bg-red-600 cursor-pointer`}>
 
             < img
                 alt="Imagen Icono"

@@ -9,6 +9,7 @@ export default function Registro() {
     const emailRef = createRef();
     const passwordRef = createRef();
     const passwordConfirmationRef = createRef();
+    const phonenumberRef = createRef();
 
     const [errores, setErrores] = useState([])
     const { registro } = useAuth({ middleware: 'guest', url: '/' })
@@ -20,8 +21,12 @@ export default function Registro() {
             name: nameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
-            password_confirmation: passwordConfirmationRef.current.value
+            password_confirmation: passwordConfirmationRef.current.value,
+            phonenumber: phonenumberRef.current.value ?? null
         }
+
+        // si el usuario es administrador
+        // datos.phonenumber = phonenumberRef.current.value
 
         registro(datos, setErrores)
     }
@@ -98,6 +103,22 @@ export default function Registro() {
                         />
                     </div>
 
+                    <div className="mb-4">
+                        <label
+                            className={`text-slate-800 ${true ? 'hidden' : ''}`}
+                            htmlFor="phoneNumber"
+                        >Número celular:</label>
+                        <input
+                            type="number"
+                            id="phoneNumber"
+                            className={`mt-2 w-full p-3 bg-gray-50 ${true ? 'hidden' : ''}`}
+                            name="phoneNumber"
+                            placeholder="Tu Número de Celular"
+                            ref={phonenumberRef}
+                        />
+                    </div>
+
+
                     <input
                         type="submit"
                         value="Crear Cuenta"
@@ -114,3 +135,4 @@ export default function Registro() {
         </>
     )
 }
+

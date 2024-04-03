@@ -42,6 +42,17 @@ export const useAuth = ({ middleware, url }) => {
         }
     }
 
+    const Sregistro = async (datos, setErrores) => {
+        try {
+            const { data } = await clienteAxios.post('/api/Sregistro', datos)
+            localStorage.setItem('AUTH_TOKEN', data.token);
+            setErrores([])
+            await mutate()
+        } catch (error) {
+            setErrores(Object.values(error.response.data.errors))
+        }
+    }
+
 
     const logout = async () => {
         try {
@@ -81,6 +92,7 @@ export const useAuth = ({ middleware, url }) => {
     return {
         login,
         registro,
+        Sregistro,
         logout,
         user,
         error
