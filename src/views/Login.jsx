@@ -80,7 +80,7 @@ export default function Login() {
             </div>
 
             <nav className="mt-5">
-                <Link to="/auth/Sregistro">
+                <Link to="/auth/registro">
                     ¿No tienes cuenta? Crea una
                 </Link>
             </nav>
