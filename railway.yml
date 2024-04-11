@@ -1,0 +1,5 @@
+# railway.yml
+
+services:
+  default:
+    buildCommand: npm install --omit=dev
