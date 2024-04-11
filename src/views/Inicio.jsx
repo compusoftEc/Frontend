@@ -19,8 +19,9 @@ export default function Inicio() {
 
     const { data, error, isLoading } = useSWR('/api/productos', fetcher)
     if (isLoading) return 'Cargando...';
-
-    const productos = data.filter(producto => producto.categoria_id === categoriaActual.id)
+    // change for resolve error filter
+    // const productos = data.filter(producto => producto.categoria_id === categoriaActual.id)
+    const productos = data?.filter(producto => producto.categoria_id === categoriaActual.id)
 
 
     return (
