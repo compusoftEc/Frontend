@@ -46,6 +46,7 @@ export default function Resumen() {
                         No hay elementos en tu pedido aún
                     </p>
                 ) : (
+                    //change for resolve error map
                     pedido.map(producto => (
                         <ResumenProducto
                             key={producto.id}

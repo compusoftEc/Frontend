@@ -86,7 +86,8 @@ const VesuvioProvider = ({ children }) => {
             const { data } = await clienteAxios.post('/api/pedidos',
                 {
                     total,
-                    productos: pedido.map(producto => {
+                    //change for resolve error map??
+                    productos: pedido?.map(producto => {
                         return {
                             id: producto.id,
                             cantidad: producto.cantidad
