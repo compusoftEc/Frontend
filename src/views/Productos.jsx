@@ -24,7 +24,7 @@ export default function Productos() {
             </p>
 
             <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
-                {data.data.map(producto => (
+                {data.data?.map(producto => (
                     <Producto
                         key={producto.imagen}
                         producto={producto}

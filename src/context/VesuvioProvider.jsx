@@ -58,7 +58,7 @@ const VesuvioProvider = ({ children }) => {
 
     const handleAgregarPedido = ({ categoria_id, ...producto }) => {
         if (pedido.some(pedidoState => pedidoState.id === producto.id)) {
-            const pedidoActualizado = pedido.map(pedidoState => pedidoState.id ===
+            const pedidoActualizado = pedido?.map(pedidoState => pedidoState.id ===
                 producto.id ? producto : pedidoState)
             setPedido(pedidoActualizado)
             toast.success('Guardado con exito')

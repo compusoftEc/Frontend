@@ -18,7 +18,8 @@ export default function Siderbar() {
             </div>
             <p className="my-0 text-xl text-center font-black">Bienvenido: {user?.name}</p>
             <div className="mt-10">
-                {categorias.map(categoria => (
+                {/* change for resolve error map */}
+                {categorias?.map(categoria => (
                     <Categoria
                         key={categoria.id}
 

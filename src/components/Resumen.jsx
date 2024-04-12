@@ -47,7 +47,7 @@ export default function Resumen() {
                     </p>
                 ) : (
                     //change for resolve error map
-                    pedido.map(producto => (
+                    pedido?.map(producto => (
                         <ResumenProducto
                             key={producto.id}
                             producto={producto}

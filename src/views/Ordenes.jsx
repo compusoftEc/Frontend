@@ -30,7 +30,7 @@ export default function Ordenes() {
                             Contenido del Pedido:
                         </p>
 
-                        {pedido.productos.map(producto => (
+                        {pedido.productos?.map(producto => (
                             <div
                                 key={producto.id}
                                 className='border-b border-b-slate-200 last-of-type:border-none py-4'

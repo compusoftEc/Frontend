@@ -32,7 +32,7 @@ export default function Inicio() {
             </p>
 
             <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
-                {productos.map(producto => (
+                {productos?.map(producto => (
                     <Producto
                         key={producto.imagen}
                         producto={producto}
