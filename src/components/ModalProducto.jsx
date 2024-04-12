@@ -21,11 +21,12 @@ export default function ModalProducto() {
             <div className="md:w-1/3">
                 <img
                     alt={`Imagen producto ${producto.nombre}`}
-                    src={`/img/${producto.imagen}.jpg`}
+                    src={`/img/${producto.imagen}.png`}
                 />
             </div>
 
-            <div className="md:w-2/3">
+
+            <div>
                 <div className="flex justify-end"> {/* mueve el boton de cerrar del lado derecho*/}
                     <button onClick={handleClickModal}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -35,65 +36,70 @@ export default function ModalProducto() {
                         </svg>
                     </button>
                 </div>
+                <div className="md:w-2/3">
+                    <h1 className='text-4xl font-bold mt-5'>
+                        {producto.nombre}
+                    </h1>
+                    <h1 className='text mt-5 text-1xl font-bold'>
+                        {producto.descripción}
+                    </h1>
+                    <p className='mt-5 font-black text-5xl text-red-700'>
+                        {formatearDinero(producto.precio)}
+                    </p>
+                    <div className="flex gap-4 mt-5">
 
-                <h1 className='text-3xl font-bold mt-5'>
-                    {producto.nombre}
-                </h1>
-                <h1 className='text-1xl font-bold mt-5'>
-                    {producto.descripción}
-                </h1>
-                <p className='mt-5 font-black text-5xl text-red-600'>
-                    {formatearDinero(producto.precio)}
-                </p>
-                <div className="flex gap-4 mt-5">
-
-                    <button
-                        type="button"
-                        onClick={() => {
-                            if (cantidad <= 1) return
-                            setCantidad(cantidad - 1);
-                        }}
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (cantidad <= 1) return
+                                setCantidad(cantidad - 1);
+                            }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 
                             12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                            </svg>
 
-                    </button>
+                        </button>
 
-                    <p className="text-3xl">{cantidad}</p>
+                        <p className="text-3xl">{cantidad}</p>
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (cantidad >= 10) return
+                                setCantidad(cantidad + 1);
+                            }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 
+                            0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+
+
+                        </button>
+
+                    </div>
 
                     <button
                         type="button"
+                        className='bg-indigo-600 hover:bg-indigo-80 px-5 py-2 
+                     mt-5 text-white uppercase rounded-lg font-bold '
                         onClick={() => {
-                            if (cantidad >= 10) return
-                            setCantidad(cantidad + 1);
+                            handleAgregarPedido({ ...producto, cantidad }) //... agregar todo en un objeto
+                            handleClickModal()//cierra el modal
                         }}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 
-                            0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-
-
+                        {edicion ? 'Guardar Cambios' : 'Agregar al Pedido'}
                     </button>
+
 
                 </div>
 
-                <button
-                    type="button"
-                    className='bg-indigo-600 hover:bg-indigo-80 px-5 py-2 
-                     mt-5 text-white uppercase rounded-lg font-bold '
-                    onClick={() => {
-                        handleAgregarPedido({ ...producto, cantidad }) //... agregar todo en un objeto
-                        handleClickModal()//cierra el modal
-                    }}
-                >
-                    {edicion ? 'Guardar Cambios' : 'Agregar al Pedido'}
-                </button>
+
             </div>
         </div>
     )

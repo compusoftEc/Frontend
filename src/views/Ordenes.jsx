@@ -57,7 +57,7 @@ export default function Ordenes() {
 
                         <button
                             type="button"
-                            className='bg-indigo-600 hover:bg-indigo-800 px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer'
+                            className='bg-indigo-600 hover:bg-red-800 px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer'
                             onClick={() => handleClickCompletarPedido(pedido.id)}
                         >Completar</button>
                     </div>

@@ -81,7 +81,7 @@ export default function Login() {
 
             <nav className="mt-5">
                 <Link to="/auth/registro">
-                    ¿No tienes cuenta? Crea una
+                    ¿No tienes cuenta? Solicita crear una aquí
                 </Link>
             </nav>
         </>

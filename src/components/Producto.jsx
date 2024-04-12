@@ -11,20 +11,20 @@ export default function Producto({ producto, botonAgregar = false, botonDisponib
             <img
                 alt={`imagen ${nombre}`}
                 className="w-full"
-                src={`/img/${imagen}.jpg`}
+                src={`/img/${imagen}.png`}
             />
 
 
             <div className="p-5">
                 <h3 className="text-2xl font-bold">{nombre}</h3>
-                <p className="mt-5 font-black text-4xl text-red-600">
+                <p className="mt-5 font-black text-4xl text-black-600">
                     {formatearDinero(precio)}
                 </p>
 
                 {botonAgregar && (
                     <button
                         type="button"
-                        className="bg-indigo-600 hover:bg-indigo-800
+                        className="bg-red-800 hover:bg-red-800
                         text-white w-full mt-5 p-3 uppercase font-bold"
                         onClick={() => {
                             handleClickModal();
@@ -38,7 +38,7 @@ export default function Producto({ producto, botonAgregar = false, botonDisponib
                 {botonDisponible && (
                     <button
                         type="button"
-                        className="bg-indigo-600 hover:bg-indigo-800
+                        className="bg-red-600 hover:bg-red-800
                         text-white w-full mt-5 p-3 uppercase font-bold"
                         onClick={() => handleClickProductoAgotado(producto.id)}
                     >

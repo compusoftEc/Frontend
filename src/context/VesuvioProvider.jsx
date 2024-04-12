@@ -45,7 +45,7 @@ const VesuvioProvider = ({ children }) => {
     // cambio en la funcion handleClickCategoria para resolver el error filter.
     const handleClickCategoria = id => {
         const categoria = categorias?.filter(categoria => categoria.id === id)[0]
-        if (categoria) setCategoriaActual
+        setCategoriaActual(categoria)
     }
 
     const handleClickModal = () => {
