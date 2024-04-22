@@ -6,12 +6,15 @@ const VesuvioContext = createContext();
 
 const VesuvioProvider = ({ children }) => {
 
+    const [token, setToken] = useState('');
     const [categorias, setCategorias] = useState([]);
     const [categoriaActual, setCategoriaActual] = useState({});
     const [modal, setModal] = useState(false);
     const [producto, setProducto] = useState({});
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
+    // const [listaMetodosPago, setListaMetodosPago] = useState([]);
+    const [metodoPago, setMetodoPago] = useState('')	//Estado para guardar el metodo de pago seleccionado
 
     useEffect(() => {
         const nuevoTotal = pedido.reduce((total, producto) =>
@@ -19,7 +22,10 @@ const VesuvioProvider = ({ children }) => {
         setTotal(nuevoTotal)
     }, [pedido])
 
+
+
     const obtenerCategorias = async () => {
+        console.log('obtenerCategorias');
         const token = localStorage.getItem('AUTH_TOKEN')
         try {
             const { data } = await clienteAxios('/api/categorias', {
@@ -36,6 +42,8 @@ const VesuvioProvider = ({ children }) => {
 
     useEffect(() => {
         obtenerCategorias()
+        console.log('useEffect')
+        console.log('categorias: ', categorias)
     }, [])
 
     // const handleClickCategoria = id => {
@@ -92,7 +100,8 @@ const VesuvioProvider = ({ children }) => {
                             id: producto.id,
                             cantidad: producto.cantidad
                         }
-                    })
+                    }),
+                    metodoPago,
                 },
                 {
                     headers: {
@@ -160,8 +169,9 @@ const VesuvioProvider = ({ children }) => {
                 total,
                 handleSubmitNuevaOrden,
                 handleClickCompletarPedido,
-                handleClickProductoAgotado
-
+                handleClickProductoAgotado,
+                metodoPago,
+                setMetodoPago
             }}
         >{children}</VesuvioContext.Provider>
     )

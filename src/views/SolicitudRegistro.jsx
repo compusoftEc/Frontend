@@ -20,7 +20,7 @@ const customStyles = {
 export default function SRegistro() {
 
     const { modal, handleClickModal } = useVesuvio();
-    console.log(modal);
+    //console.log(modal);
 
     const nameRef = createRef();
     const emailRef = createRef();
@@ -39,7 +39,14 @@ export default function SRegistro() {
             numberRef: numberRef.current.value
         }
 
+        // let response = registro(datos, setErrores)
         registro(datos, setErrores)
+
+        // if (response) {
+        //     // mostrar el modal de exito
+        // } else {
+        //     // mostrar el modal de error
+        // }
     }
 
     return (

@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import VesivioContext from "../context/VesuvioProvider";
+import VesuvioContext from "../context/VesuvioProvider";
 
 const useVesuvio = () => {
-    return useContext(VesivioContext);
+    return useContext(VesuvioContext);
 }
 
 export default useVesuvio;

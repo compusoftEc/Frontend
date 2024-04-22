@@ -7,6 +7,9 @@ import Resumen from '../components/Resumen'
 import ModalProducto from '../components/ModalProducto'
 import useVesuvio from '../hooks/useVesuvio'
 import { useAuth } from '../hooks/useAuth';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Inicio from '../views/Inicio';
 
 const customStyles = {
     content: {
@@ -25,16 +28,36 @@ export default function Layout() {
     useAuth({ middleware: 'auth' });
     const { modal } = useVesuvio();
 
+    const location = useLocation();
+    const { token } = location.state || { token: null };
+    const [categoriaId, setCategoriaId] = useState(1);
+
     return (
         <>
             <div className='md:flex'>
-                <Sidebar />
+                {/* <p>esta es la vista del cliente</p> */}
+                <Sidebar
+                    token={token}
+                    setCategoriaId={setCategoriaId}
+                />
 
                 <main className='flex-1 h-screen overflow-y-scroll bg-gray-100 p-2'>
-                    <Outlet />
+
+
+                <Inicio
+                    token={token}
+                    categoriaId={categoriaId}
+                />
+
+
+                    {/* <Outlet
+                        categoriaId={categoriaId}
+                    /> */}
                 </main>
 
-                <Resumen />
+                <Resumen
+                    token={token}
+                />
             </div>
 
             <Modal isOpen={modal} style={customStyles}>

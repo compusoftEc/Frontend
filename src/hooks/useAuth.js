@@ -6,6 +6,7 @@ import clienteAxios from "../config/axios";
 export const useAuth = ({ middleware, url }) => {
 
     const token = localStorage.getItem('AUTH_TOKEN')
+    // consst[token, setToken] = useState('');
     const navigate = useNavigate();
 
     const { data: user, error, mutate } = useSWR('/api/user', () =>
@@ -25,7 +26,8 @@ export const useAuth = ({ middleware, url }) => {
             const { data } = await clienteAxios.post('/api/login', datos)
             localStorage.setItem('AUTH_TOKEN', data.token);
             setErrores([])
-            await mutate()// revalida el codigo enbusca de cambios 
+            await mutate()// revalida el codigo en busca de cambios 
+            //console.log('token: ', data)
         } catch (error) {
             setErrores(Object.values(error.response.data.errors))
         }
@@ -37,9 +39,12 @@ export const useAuth = ({ middleware, url }) => {
             localStorage.setItem('AUTH_TOKEN', data.token);
             setErrores([])
             await mutate()
+            // return true;
         } catch (error) {
             setErrores(Object.values(error.response.data.errors))
+            // return false;
         }
+
     }
 
     const Sregistro = async (datos, setErrores) => {
@@ -71,24 +76,34 @@ export const useAuth = ({ middleware, url }) => {
 
     useEffect(() => {
         if (middleware === 'guest' && url && user) {
-            navigate(url)
+            console.log('if1')
+            console.log('middleware: ', middleware)
+            console.log('user: ', user)
+            navigate(url, { token: token })
         }
 
         if (middleware === 'guest' && user && user.admin) {
+            console.log('if2')
+            console.log('middleware: ', middleware)
+            console.log('user: ', user)
             navigate('/admin');
         }
 
         if (middleware === 'admin' && user && !user.admin) {
-            navigate('/')
+            console.log('if3')
+            console.log('middleware: ', middleware)
+            console.log('user: ', user)
+            navigate('/',)
         }
 
         if (middleware === 'auth' && error) {
+            console.log('if4')
+            console.log('middleware: ', middleware)
+            console.log('user: ', user)
             navigate('/auth/login')
         }
     }, [user, error])
-    // console.log(user)
-    // console.log(error)
-    // console.log(middleware)
+
     return {
         login,
         registro,

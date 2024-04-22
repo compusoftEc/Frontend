@@ -37,6 +37,7 @@ export default function Ordenes() {
                             >
                                 <p className='text-sm'>ID: {producto.id}</p>
                                 <p>{producto.nombre}</p>
+                                <p>{producto.numero}</p>
                                 <p>
                                     Cantidad: {''}
                                     <span className='font-bold'>{producto.pivot.cantidad}</span>
@@ -48,6 +49,11 @@ export default function Ordenes() {
                         <p className='text-lg font-bold text-slate-600'>
                             Cliente: {''}
                             <span className='font-normal'>{pedido.user.name}</span>
+                        </p>
+
+                        <p className='text-lg font-bold text-slate-600'>
+                            Forma de pago: {''}
+                            <span className='font-normal text-slate-600'>{pedido.metodo_pago_id}</span>
                         </p>
 
                         <p className='text-lg font-bold text-red-600'>

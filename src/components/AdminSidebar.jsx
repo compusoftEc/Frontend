@@ -18,15 +18,16 @@ export default function AdminSidebar() {
             <nav className='flex flex-col p-4'>
                 <Link to="/admin" className='font-bold text-lg'>Ordenes</Link>
                 <Link to="/admin/productos" className='font-bold text-lg'>Productos</Link>
+                <Link to="/admin/registro" className='font-bold text-lg'>Registro de clientes</Link>
             </nav>
 
             <div className='my-5 px-5'>
                 <button
                     type="button"
-                    className="text-center bg-red-500 w-full p-3 font-bold text-white truncate"
+                    className="text-center bg-red-500 w-full p-4 font-bold text-white truncate"
                     onClick={logout}
                 >
-                    Cerrar Sesión
+                    Salir
                 </button>
             </div>
         </aside>

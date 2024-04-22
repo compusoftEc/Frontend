@@ -22,7 +22,7 @@ export default function Registro() {
             email: emailRef.current.value,
             password: passwordRef.current.value,
             password_confirmation: passwordConfirmationRef.current.value,
-            phonenumber: phonenumberRef.current.value ?? null
+            phonenumber: phonenumberRef.current.value
         }
 
         // si el usuario es administrador
@@ -70,6 +70,20 @@ export default function Registro() {
                             name="email"
                             placeholder="Tu Email"
                             ref={emailRef}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            className="text-slate-800"
+                            htmlFor="phonenumber"
+                        >Número celular:</label>
+                        <input
+                            type="phonenumber"
+                            id="phonenumber"
+                            className="mt-2 w-full p-3 bg-gray-50"
+                            name="phonenumber"
+                            placeholder="Tu numero de telefono"
+                            ref={phonenumberRef}
                         />
                     </div>
 

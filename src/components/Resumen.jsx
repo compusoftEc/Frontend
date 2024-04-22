@@ -2,62 +2,68 @@ import { formatearDinero } from "../helpers";
 import useVesuvio from "../hooks/useVesuvio";
 import { useAuth } from "../hooks/useAuth";
 import ResumenProducto from "./ResumenProducto";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import clienteAxios from "../config/axios";
 
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 
-// function App() {
-//     const [selectedOption, setSelectedOption] = useState('');
-
-//     const handleOptionChange = (option) => {
-//       setSelectedOption(option);
-//     };
-
-export default function Resumen() {
-    const { pedido, total, handleSubmitNuevaOrden } = useVesuvio();
+export default function Resumen({ token }) {
+    const { pedido, total, handleSubmitNuevaOrden, metodoPago, setMetodoPago } = useVesuvio();
     const { logout } = useAuth({})
-
+    const [listaMetodosPago, setListaMetodosPago] = useState([]);
     const comprobarPedido = () => pedido.length === 0;
+
 
     const handleSubmit = e => {
         e.preventDefault();
         handleSubmitNuevaOrden();
-        // openModal();
-
     }
 
-    const openModal = () => {
-        // document.getElementById('modal').classList.remove('hidden')
+
+    //Funcion para traes los metodos de pago del backend
+
+    const obtenerMetodoPago = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN')
+        try {
+            const { data } = await clienteAxios('/api/metodoPago', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setListaMetodosPago(data ?? [])
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [size, setSize] = React.useState('md')
+    useEffect(() => {
+        obtenerMetodoPago()
+    }, [token])
 
-    const sizes = ["2xl"];
 
+    // Función para manejar el cambio de método de pago seleccionado
+    const handleMetodoPagoChange = (event) => {
+        metodoPago(event.target.value);
+    };
 
-    const handleOpen = (size) => {
-        setSize(size)
-        onOpen();
-    }
 
     return (
-        <aside className="w-72 h-screen overflow-y-scroll p-5">
-            <div className="my-5 pxl-5 text-2xl">
+        <aside className="w-72 h-screen overflow-y-scroll p-4">
+            <div className="my-1 pxl-4 text-2xl">
                 <button
                     type="button"
                     className="text-center bg-red-500 w-full p-2 font-bold text-white 
                     truncate"
+                    
                     onClick={logout}
                 >
                     Salir
                 </button>
             </div>
-            <h1 className="text-4xl font-black">
+            <h1 className=" mt-5 text-4xl font-black">
                 Mi Pedido
             </h1>
             <p className="text-lg my-5">
-                Aquí podrás ver el resumen y totales de tu pedido
+                Aquí podrás ver el resumen y total de tu pedido
             </p>
 
             <div className="py-10">
@@ -76,115 +82,48 @@ export default function Resumen() {
                 )}
             </div>
 
-            <p className="text-xl mt-10">
+            <p className="text-3xl font-black">
                 Total: {''}
                 {formatearDinero(total)}
             </p>
 
-            <div>
-                <div>
-                    <h1 className=" mt-3 text-3xl font-black">Forma de pago</h1>
-                    <div className="text-xl mt-5">
+            {/* Metodo de pago */}
+            <div >
+                <h2 className="mt-4 text-1xl font-black"
+                >Selecciona un método de pago:</h2>
+
+                {listaMetodosPago?.map((metodoPago) => (
+
+                    <div className="text-lg my-1"
+                        key={metodoPago.id}>
                         <input
                             type="radio"
-                            id="option1"
-                            name="option"
-                            value="option1"
-                        //   checked={selectedOption === 'option1'}
-                        //   onChange={() => handleOptionChange('option1')}
+                            id={metodoPago.id}
+                            name="metodoPago"
+                            value={metodoPago.id}
+                            onChange={() => setMetodoPago(metodoPago.id)}
                         />
-                        <label htmlFor="option1"> Efectivo</label>
+                        <label htmlFor={metodoPago.metodoPago}>{metodoPago.metodoPago}</label>
                     </div>
-                    <div className="text-xl mt-5">
-                        <input
-                            type="radio"
-                            id="option2"
-                            name="option"
-                            value="option2"
-                        //   checked={selectedOption === 'option2'}
-                        //   onChange={() => handleOptionChange('option2')}
-                        />
-                        <label htmlFor="option2"> Transferencia</label>
-                    </div>
-                    <div className="text-xl mt-5">
-                        <input
-                            type="radio"
-                            id="option3"
-                            name="option"
-                            value="option3"
-                        //   checked={selectedOption === 'option3'}
-                        //   onChange={() => handleOptionChange('option3')}
-                        />
-                        <label htmlFor="option3">Terjeta: </label>
-
-                        <div className="flex flex-wrap gap-3">
-
-                        </div>
-                        {/*
-                        <Modal
-                            size={size}
-                            isOpen={isOpen}
-                            onClose={onClose}
-                        >
-                            <ModalContent>
-                                {(onClose) => (
-                                    <>
-                                        <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                                        <ModalBody>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                Nullam pulvinar risus non risus hendrerit venenatis.
-                                                Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                                            </p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                Nullam pulvinar risus non risus hendrerit venenatis.
-                                                Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                                            </p>
-                                            <p>
-                                                Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                                                dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis.
-                                                Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.
-                                            </p>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <Button color="danger" variant="light" onPress={onClose}>
-                                                Close
-                                            </Button>
-                                            <Button color="primary" onPress={onClose}>
-                                                Action
-                                            </Button>
-                                        </ModalFooter>
-                                    </>
-                                )}
-                            </ModalContent>
-                        </Modal> */}
-
-                        {/* {selectedOption === 'option3' && (
-          <div>
-            {subOptions.map((subOption, index) => (
-              <div key={index}>
-                <input
-                  type="radio"
-                  id={`subOption${index + 1}`}
-                  name="subOption"
-                  value={subOption}
-                />
-                <label htmlFor={`subOption${index + 1}`}>{subOption}</label>
-              </div>
-            ))}
-          </div>
-        )} */}
-
-                        <label htmlFor="option4"> 3 Meses</label>
-                        <label htmlFor="option5"> 6 Meses</label>
-                        <p className="text-xl mt-10">
-                            Cuotas desde: {''}
-                            {formatearDinero((total + (total * 0.15)) / 6)}
-                        </p>
-                    </div>
-                </div>
+                ))}
             </div>
+
+            <p className="text-xl font-black">
+                Cuotas de: {''}
+                {formatearDinero(total / 6)}
+            </p>
+
+            <div>
+                {metodoPago.id === 3 && (
+                    <p>
+                        Cuotas de: {formatearDinero(total / 6)} {formatearDinero(total)}
+                    </p>
+                )}
+            </div>
+
+            <p className="text-2xl font-black">
+
+            </p>
 
             <form
                 className="w-full"
