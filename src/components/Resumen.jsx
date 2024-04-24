@@ -12,6 +12,8 @@ export default function Resumen({ token }) {
     const [listaMetodosPago, setListaMetodosPago] = useState([]);
     const comprobarPedido = () => pedido.length === 0;
 
+    const [mensajeMetodoPago, setMensajeMetodoPago] = useState(""); // Estado para el mensaje del método de pago
+    const [cuotas, setCuotas] = useState(0); // Estado para el valor de las cuotas
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -39,13 +41,41 @@ export default function Resumen({ token }) {
         obtenerMetodoPago()
     }, [token])
 
+    // Función para manejar el cambio de selección del método de pago y mostrar el mensaje
+    const handleMetodoPagoChange = (id) => {
+        setMetodoPago(id); // Establecer el método de pago seleccionado
 
-    // Función para manejar el cambio de método de pago seleccionado
-    const handleMetodoPagoChange = (event) => {
-        metodoPago(event.target.value);
+        // Mostrar el mensaje correspondiente al método de pago seleccionado
+        switch (id) {
+            case 2:
+                setMensajeMetodoPago("Realiza tus pagos a Marco Antonio Caiza Cerón " +
+                    "con CI 1709766453. Envía el comprobante al 0999729628\n" +
+                    "Produbanco-Corriente\n" +
+                    "Cta. 01022937245\n" +
+                    "\n" +
+                    "Pichincha-Ahorros\n" +
+                    "Cta. 2205233642\n" +
+                    "\n" +
+                    "Guayaquil-Corriente\n" +
+                    "Cta. 0013711968");
+                break;
+            case 3:
+                const cuotasValor3 = total / 3; // Calcular el valor de las cuotas
+                setCuotas(cuotasValor3); // Actualizar el estado de las cuotas
+                setMensajeMetodoPago(`Cuotas de ${formatearDinero(cuotasValor3)}`);
+                break;
+            case 4:
+                const cuotasValor6 = total / 6; // Calcular el valor de las cuotas
+                setCuotas(cuotasValor6); // Actualizar el estado de las cuotas
+                setMensajeMetodoPago(`Cuotas de ${formatearDinero(cuotasValor6)}`);
+                break;
+            default:
+                setMensajeMetodoPago(""); // Limpiar el mensaje si no hay selección especial
+                setCuotas(0); // Restablecer el valor de las cuotas
+        }
     };
 
-
+    
     return (
         <aside className="w-72 h-screen overflow-y-scroll p-4">
             <div className="my-1 pxl-4 text-2xl">
@@ -63,10 +93,10 @@ export default function Resumen({ token }) {
                 Mi Pedido
             </h1>
             <p className="text-lg my-5">
-                Aquí podrás ver el resumen y total de tu pedido
+                Aquí podrás ver el resumen de tu pedido.
             </p>
 
-            <div className="py-10">
+            <div className="py-10 max-h-90 overflow-y-auto">
                 {pedido.length === 0 ? (
                     <p className="text-center text-2xl">
                         No hay elementos en tu pedido aún
@@ -82,7 +112,9 @@ export default function Resumen({ token }) {
                 )}
             </div>
 
-            <p className="text-3xl font-black">
+            <div></div> 
+
+            <p className="py-20 text-3xl font-black">
                 Total: {''}
                 {formatearDinero(total)}
             </p>
@@ -100,30 +132,23 @@ export default function Resumen({ token }) {
                             type="radio"
                             id={metodoPago.id}
                             name="metodoPago"
-                            value={metodoPago.id}
-                            onChange={() => setMetodoPago(metodoPago.id)}
+                            value={metodoPago.id} 
+                            onChange={() => {
+                                setMetodoPago(metodoPago.id);
+                                handleMetodoPagoChange(metodoPago.id);
+                            }}
                         />
-                        <label htmlFor={metodoPago.metodoPago}>{metodoPago.metodoPago}</label>
+                        <label htmlFor={metodoPago.metodoPago}>{'\t' + metodoPago.metodoPago}</label>
                     </div>
                 ))}
             </div>
 
-            <p className="text-xl font-black">
-                Cuotas de: {''}
-                {formatearDinero(total / 6)}
-            </p>
-
-            <div>
-                {metodoPago.id === 3 && (
-                    <p>
-                        Cuotas de: {formatearDinero(total / 6)} {formatearDinero(total)}
-                    </p>
+                {/* Mostrar el mensaje del método de pago */}
+                {mensajeMetodoPago && (
+                <div className="text-lg my-1">
+                    <p>{mensajeMetodoPago}</p>
+                </div>
                 )}
-            </div>
-
-            <p className="text-2xl font-black">
-
-            </p>
 
             <form
                 className="w-full"

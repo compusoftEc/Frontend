@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useVesuvio from "../hooks/useVesuvio"
 import { formatearDinero } from "../helpers";
+import { link } from "@nextui-org/react";
 
 export default function ModalProducto() {
 
@@ -43,6 +44,10 @@ export default function ModalProducto() {
                     <h1 className='text mt-5 text-1xl font-bold'>
                         {producto.descripción}
                     </h1>
+                    <p className='mt-5 font-black text-2xl text-indigo-600'>
+                    <a href={producto.link}> Mas información </a>
+                    </p>
+
                     <p className='mt-5 font-black text-5xl text-red-700'>
                         {formatearDinero(producto.precio)}
                     </p>
