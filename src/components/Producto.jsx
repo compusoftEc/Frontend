@@ -4,7 +4,7 @@ import useVesuvio from "../hooks/useVesuvio"
 export default function Producto({ producto, botonAgregar = false, botonDisponible = false }) {
 
     const { handleClickModal, handleSetProducto, handleClickProductoAgotado } = useVesuvio();
-    const { nombre, imagen, precio } = producto
+    const { nombre, imagen, precio, desCorta } = producto
 
     return (
         <div className="border p-3 shadow bg-white">
@@ -17,6 +17,7 @@ export default function Producto({ producto, botonAgregar = false, botonDisponib
 
             <div className="p-5">
                 <h3 className="text-2xl font-bold">{nombre}</h3>
+                <h4 className="text-1xl">{desCorta}</h4>
                 <p className="mt-5 font-black text-4xl text-black-600">
                     {formatearDinero(precio)}
                 </p>
