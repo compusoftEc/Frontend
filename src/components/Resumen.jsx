@@ -48,21 +48,23 @@ export default function Resumen({ token }) {
         // Mostrar el mensaje correspondiente al método de pago seleccionado
         switch (id) {
             case 2:
-                setMensajeMetodoPago("Realiza tus pagos a Marco Antonio Caiza Cerón " +
-                    "con CI 1709766453. Envía el comprobante al 0999729628\n" +
-                    "Produbanco-Corriente\n" +
-                    "Cta. 01022937245\n" +
-                    "\n" +
+                setMensajeMetodoPago(
+                    "Realiza tus pagos a:\n"+
+                    "<strong>Marco Antonio Caiza Cerón</strong>" +
+                    " con <strong>CI 1709766453</strong>\n\n" +
+                    "Envía el comprobante al<strong> 0999729628</strong>\n\n" +
+                    "Produbanco-Corriente:\n" +
+                    "<b>Cta. 01022937245</b>\n" +
                     "Pichincha-Ahorros\n" +
-                    "Cta. 2205233642\n" +
-                    "\n" +
+                    "<b>Cta. 2205233642</b>\n" +
                     "Guayaquil-Corriente\n" +
-                    "Cta. 0013711968");
+                    "<b>Cta. 0013711968</b>"
+                );
                 break;
             case 3:
                 const cuotasValor3 = total / 3; // Calcular el valor de las cuotas
                 setCuotas(cuotasValor3); // Actualizar el estado de las cuotas
-                setMensajeMetodoPago(`Cuotas de ${formatearDinero(cuotasValor3)}`);
+                setMensajeMetodoPago(`Cuotas de${formatearDinero(cuotasValor3)}`);
                 break;
             case 4:
                 const cuotasValor6 = total / 6; // Calcular el valor de las cuotas
@@ -93,10 +95,10 @@ export default function Resumen({ token }) {
                 Mi Pedido
             </h1>
             <p className="text-lg my-5">
-                Aquí podrás ver el resumen de tu pedido.
+                Resumen de tu pedido.
             </p>
 
-            <div className="py-10 max-h-90 overflow-y-auto">
+            <div className="py-0 max-h-80 overflow-y-auto">
                 {pedido.length === 0 ? (
                     <p className="text-center text-2xl">
                         No hay elementos en tu pedido aún
@@ -114,14 +116,14 @@ export default function Resumen({ token }) {
 
             <div></div> 
 
-            <p className="py-20 text-3xl font-black">
+            <p className="py-0 text-3xl font-black">
                 Total: {''}
                 {formatearDinero(total)}
             </p>
 
             {/* Metodo de pago */}
             <div >
-                <h2 className="mt-4 text-1xl font-black"
+                <h2 className="py-0 mt-4 text-1xl font-black"
                 >Selecciona un método de pago:</h2>
 
                 {listaMetodosPago?.map((metodoPago) => (
@@ -143,12 +145,18 @@ export default function Resumen({ token }) {
                 ))}
             </div>
 
-                {/* Mostrar el mensaje del método de pago */}
-                {mensajeMetodoPago && (
-                <div className="text-lg my-1">
-                    <p>{mensajeMetodoPago}</p>
-                </div>
+            {/* Mostrar el mensaje del método de pago */}
+            {mensajeMetodoPago && (
+                <div className="text-lg my-1 font-">
+                {mensajeMetodoPago.includes('<strong>') ? (
+                    <p  style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={{ __html: mensajeMetodoPago }}></p>
+                ) : (
+                    <p style={{ whiteSpace: 'pre-line' }}>{mensajeMetodoPago}</p>
                 )}
+                </div>
+
+                
+            )}
 
             <form
                 className="w-full"
