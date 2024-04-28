@@ -33,13 +33,13 @@ export default function Siderbar({ token, setCategoriaId }) {
 
     return (
         <aside className="md:w-69" >
-            {/* <div className="p-1">
+            <div className="p-1">
                 <img
                     className="w-20 h-20 m-auto"
                     src="img/logo.png"
                     alt="Imagen Logo"
                 />
-            </div> */}
+            </div>
             <p className=" mt-5 text-2xl text-center font-black">Bienvenido: {user?.name}</p>
 
             <div className="mt-5">

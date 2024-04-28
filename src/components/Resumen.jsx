@@ -12,6 +12,9 @@ export default function Resumen({ token }) {
     const [listaMetodosPago, setListaMetodosPago] = useState([]);
     const comprobarPedido = () => pedido.length === 0;
 
+    const [metodoPagoSeleccionado, setMetodoPagoSeleccionado] = useState(null);
+    const [mostrarMensaje, setMostrarMensaje] = useState(false);
+
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -40,9 +43,14 @@ export default function Resumen({ token }) {
     }, [token])
 
 
-    // Función para manejar el cambio de método de pago seleccionado
-    const handleMetodoPagoChange = (event) => {
-        metodoPago(event.target.value);
+    // Función para seleccionar un metodo de pago
+    const handleChange = (id) => {
+        setMetodoPagoSeleccionado(id);
+        if (id === '3' && id === '4') {
+            setMostrarMensaje(true);
+        } else {
+            setMostrarMensaje(false);
+        }
     };
 
 
@@ -53,7 +61,7 @@ export default function Resumen({ token }) {
                     type="button"
                     className="text-center bg-red-500 w-full p-2 font-bold text-white 
                     truncate"
-                    
+
                     onClick={logout}
                 >
                     Salir
@@ -101,7 +109,7 @@ export default function Resumen({ token }) {
                             id={metodoPago.id}
                             name="metodoPago"
                             value={metodoPago.id}
-                            onChange={() => setMetodoPago(metodoPago.id)}
+                            onChange={() => setMetodoPago(metodoPago.id), () => handleChange(metodoPago.id)}
                         />
                         <label htmlFor={metodoPago.metodoPago}>{metodoPago.metodoPago}</label>
                     </div>
@@ -113,13 +121,9 @@ export default function Resumen({ token }) {
                 {formatearDinero(total / 6)}
             </p>
 
-            <div>
-                {metodoPago.id === 3 && (
-                    <p>
-                        Cuotas de: {formatearDinero(total / 6)} {formatearDinero(total)}
-                    </p>
-                )}
-            </div>
+            {mostrarMensaje && metodoPagoSeleccionado === '3' && (
+                <p>Este es el tercer método de pago seleccionado.</p>
+            )}
 
             <p className="text-2xl font-black">
 
