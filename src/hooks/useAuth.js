@@ -26,7 +26,7 @@ export const useAuth = ({ middleware, url }) => {
             const { data } = await clienteAxios.post('/api/login', datos)
             localStorage.setItem('AUTH_TOKEN', data.token);
             setErrores([])
-            await mutate()// revalida el codigo en busca de cambios 
+            await mutate()// revalida el codigo en busca de
             //console.log('token: ', data)
         } catch (error) {
             setErrores(Object.values(error.response.data.errors))
