@@ -76,30 +76,30 @@ export const useAuth = ({ middleware, url }) => {
 
     useEffect(() => {
         if (middleware === 'guest' && url && user) {
-            console.log('if1')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if1')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate(url, { token: token })
         }
 
         if (middleware === 'guest' && user && user.admin) {
-            console.log('if2')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if2')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate('/admin');
         }
 
         if (middleware === 'admin' && user && !user.admin) {
-            console.log('if3')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if3')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate('/',)
         }
 
         if (middleware === 'auth' && error) {
-            console.log('if4')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if4')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate('/auth/login')
         }
     }, [user, error])
