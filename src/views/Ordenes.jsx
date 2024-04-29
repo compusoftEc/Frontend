@@ -52,7 +52,7 @@ export default function Ordenes() {
 
                         <p className='text-lg font-bold text-slate-600'>
                             Forma de pago: {''}
-                            <span className='font-normal text-slate-600'>{pedido.metodoPago.metodoPago}</span>
+                            <span className='font-normal text-slate-600'>{pedido.metodo_pago_id}</span>
                         </p>
 
                         <p className='text-lg font-bold text-red-600'>
