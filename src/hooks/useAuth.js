@@ -29,7 +29,7 @@ export const useAuth = ({ middleware, url }) => {
             await mutate()// revalida el codigo en busca de cambios 
             //console.log('token: ', data)
         } catch (error) {
-            setErrores(Object.values(error?.response?.data?.errors))
+            setErrores(Object.values(error.response.data.errors))
         }
     }
 
@@ -41,7 +41,7 @@ export const useAuth = ({ middleware, url }) => {
             await mutate()
             // return true;
         } catch (error) {
-            setErrores(Object.values(error?.response?.data?.errors))
+            setErrores(Object.values(error.response.data.errors))
             // return false;
         }
 
