@@ -19,8 +19,9 @@ export default function Producto({ producto, botonAgregar = false, botonDisponib
                 <h3 className="text-2xl font-bold">{nombre}</h3>
                 <h4 className="text-1xl">{desCorta}</h4>
                 <p className="mt-5 font-black text-4xl text-black-600">
-                    {formatearDinero(precio)}
+                    {formatearDinero(precio)} 
                 </p>
+                <p className="text-1xl font-bold text-red-600">Precio incluido IVA</p>
 
                 {botonAgregar && (
                     <button

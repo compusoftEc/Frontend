@@ -80,22 +80,21 @@ export default function Resumen({ token }) {
     
     return (
         <aside className="w-72 h-screen overflow-y-scroll p-4">
-            <div className="my-1 pxl-4 text-2xl">
+            <div className="my-0 pxl-4 text-2xl">
                 <button
                     type="button"
                     className="text-center bg-red-500 w-full p-2 font-bold text-white 
                     truncate"
-                    
                     onClick={logout}
                 >
                     Salir
                 </button>
             </div>
-            <h1 className=" mt-5 text-4xl font-black">
+            <h1 className=" mt-3 text-4xl font-black">
                 Mi Pedido
             </h1>
             <p className="text-lg my-5">
-                Resumen de tu pedido.
+                Resumen de tu pedido:
             </p>
 
             <div className="py-0 max-h-80 overflow-y-auto">
@@ -114,49 +113,48 @@ export default function Resumen({ token }) {
                 )}
             </div>
 
-            <div></div> 
-
             <p className="py-0 text-3xl font-black">
                 Total: {''}
                 {formatearDinero(total)}
             </p>
-
-            {/* Metodo de pago */}
-            <div >
-                <h2 className="py-0 mt-4 text-1xl font-black"
-                >Selecciona un método de pago:</h2>
-
-                {listaMetodosPago?.map((metodoPago) => (
-
-                    <div className="text-lg my-1"
-                        key={metodoPago.id}>
-                        <input
-                            type="radio"
-                            id={metodoPago.id}
-                            name="metodoPago"
-                            value={metodoPago.id} 
-                            onChange={() => {
-                                setMetodoPago(metodoPago.id);
-                                handleMetodoPagoChange(metodoPago.id);
-                            }}
-                        />
-                        <label htmlFor={metodoPago.metodoPago}>{'\t' + metodoPago.metodoPago}</label>
-                    </div>
-                ))}
-            </div>
-
-            {/* Mostrar el mensaje del método de pago */}
-            {mensajeMetodoPago && (
-                <div className="text-lg my-1 font-">
-                {mensajeMetodoPago.includes('<strong>') ? (
-                    <p  style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={{ __html: mensajeMetodoPago }}></p>
+             <div>
+                {pedido.length === 0 ? (
+                    <p></p>
                 ) : (
-                    <p style={{ whiteSpace: 'pre-line' }}>{mensajeMetodoPago}</p>
-                )}
-                </div>
+                    <div>
+                        {/* Metodo de pago */}
+                        <h2 className="py-0 mt-4 text-1xl font-black"
+                        >Selecciona un método de pago:</h2>
+                            {listaMetodosPago?.map((metodoPago) => (
+                                <div className="text-lg my-1"
+                                    key={metodoPago.id}>
+                                    <input
+                                    type="radio"
+                                    id={metodoPago.id}
+                                    name="metodoPago"
+                                    value={metodoPago.id} 
+                                    onChange={() => {
+                                    setMetodoPago(metodoPago.id);
+                                    handleMetodoPagoChange(metodoPago.id);
+                                    }}
+                                    />
+                                    <label htmlFor={metodoPago.metodoPago}>{'\t' + metodoPago.metodoPago}</label>
+                                </div>
+                        ))}
 
-                
-            )}
+                        {/* Mostrar el mensaje del método de pago */}
+                            {mensajeMetodoPago && (
+                            <div className="text-lg my-1 font-">
+                                {mensajeMetodoPago.includes('<strong>') ? (
+                                <p  style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={{ __html: mensajeMetodoPago }}></p>
+                                ) : (
+                                <p style={{ whiteSpace: 'pre-line' }}>{mensajeMetodoPago}</p>
+                            )}
+                            </div>
+                            )}
+                    </div>
+                    )}
+             </div>
 
             <form
                 className="w-full"
