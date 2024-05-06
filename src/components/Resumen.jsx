@@ -12,9 +12,6 @@ export default function Resumen({ token }) {
     const [listaMetodosPago, setListaMetodosPago] = useState([]);
     const comprobarPedido = () => pedido.length === 0;
 
-    const [metodoPagoSeleccionado, setMetodoPagoSeleccionado] = useState(null);
-    const [mostrarMensaje, setMostrarMensaje] = useState(false);
-
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -43,20 +40,15 @@ export default function Resumen({ token }) {
     }, [token])
 
 
-    // Función para seleccionar un metodo de pago
-    const handleChange = (id) => {
-        setMetodoPagoSeleccionado(id);
-        if (id === '3' && id === '4') {
-            setMostrarMensaje(true);
-        } else {
-            setMostrarMensaje(false);
-        }
+    // Función para manejar el cambio de método de pago seleccionado
+    const handleMetodoPagoChange = (event) => {
+        metodoPago(event.target.value);
     };
 
 
     return (
         <aside className="w-72 h-screen overflow-y-scroll p-4">
-            <div className="my-1 pxl-4 text-2xl">
+            <div className="my-0 pxl-4 text-2xl">
                 <button
                     type="button"
                     className="text-center bg-red-500 w-full p-2 font-bold text-white 
@@ -67,14 +59,14 @@ export default function Resumen({ token }) {
                     Salir
                 </button>
             </div>
-            <h1 className=" mt-5 text-4xl font-black">
+            <h1 className=" mt-3 text-4xl font-black">
                 Mi Pedido
             </h1>
             <p className="text-lg my-5">
-                Aquí podrás ver el resumen y total de tu pedido
+                Resumen de tu pedido:
             </p>
 
-            <div className="py-10">
+            <div className="py-0 max-h-80 overflow-y-auto">
                 {pedido.length === 0 ? (
                     <p className="text-center text-2xl">
                         No hay elementos en tu pedido aún
@@ -90,7 +82,7 @@ export default function Resumen({ token }) {
                 )}
             </div>
 
-            <p className="text-3xl font-black">
+            <p className="py-0 text-3xl font-black">
                 Total: {''}
                 {formatearDinero(total)}
             </p>
@@ -109,7 +101,7 @@ export default function Resumen({ token }) {
                             id={metodoPago.id}
                             name="metodoPago"
                             value={metodoPago.id}
-                            onChange={() => setMetodoPago(metodoPago.id), () => handleChange(metodoPago.id)}
+                            onChange={() => setMetodoPago(metodoPago.id)}
                         />
                         <label htmlFor={metodoPago.metodoPago}>{metodoPago.metodoPago}</label>
                     </div>
@@ -121,13 +113,13 @@ export default function Resumen({ token }) {
                 {formatearDinero(total / 6)}
             </p>
 
-            {mostrarMensaje && metodoPagoSeleccionado === '3' && (
-                <p>Este es el tercer método de pago seleccionado.</p>
-            )}
-
-            <p className="text-2xl font-black">
-
-            </p>
+            <div>
+                {metodoPago.id === 3 && (
+                    <p>
+                        Cuotas de: {formatearDinero(total / 6)} {formatearDinero(total)}
+                    </p>
+                )}
+            </div>
 
             <form
                 className="w-full"

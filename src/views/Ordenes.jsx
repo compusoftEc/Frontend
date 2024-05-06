@@ -11,7 +11,6 @@ export default function Ordenes() {
         }
     })
     const { data, error, isLoading } = useSWR('/api/pedidos', fetcher)
-
     const { handleClickCompletarPedido } = useVesuvio()
 
     if (isLoading) return 'Cargando...'

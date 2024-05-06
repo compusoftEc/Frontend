@@ -26,7 +26,7 @@ export const useAuth = ({ middleware, url }) => {
             const { data } = await clienteAxios.post('/api/login', datos)
             localStorage.setItem('AUTH_TOKEN', data.token);
             setErrores([])
-            await mutate()// revalida el codigo en busca de cambios 
+            await mutate()// revalida el codigo en busca de
             //console.log('token: ', data)
         } catch (error) {
             setErrores(Object.values(error.response.data.errors))
@@ -54,7 +54,7 @@ export const useAuth = ({ middleware, url }) => {
             setErrores([])
             await mutate()
         } catch (error) {
-            setErrores(Object.values(error.response.data.errors))
+            setErrores(Object.values(error?.response?.data?.errors))
         }
     }
 
@@ -76,30 +76,30 @@ export const useAuth = ({ middleware, url }) => {
 
     useEffect(() => {
         if (middleware === 'guest' && url && user) {
-            console.log('if1')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if1')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate(url, { token: token })
         }
 
         if (middleware === 'guest' && user && user.admin) {
-            console.log('if2')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if2')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate('/admin');
         }
 
         if (middleware === 'admin' && user && !user.admin) {
-            console.log('if3')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if3')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate('/',)
         }
 
         if (middleware === 'auth' && error) {
-            console.log('if4')
-            console.log('middleware: ', middleware)
-            console.log('user: ', user)
+            // console.log('if4')
+            // console.log('middleware: ', middleware)
+            // console.log('user: ', user)
             navigate('/auth/login')
         }
     }, [user, error])

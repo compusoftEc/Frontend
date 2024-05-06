@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import clienteAxios from "../config/axios";
 
+
 const VesuvioContext = createContext();
 
 const VesuvioProvider = ({ children }) => {
@@ -11,6 +12,7 @@ const VesuvioProvider = ({ children }) => {
     const [categoriaActual, setCategoriaActual] = useState({});
     const [modal, setModal] = useState(false);
     const [producto, setProducto] = useState({});
+    
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
     // const [listaMetodosPago, setListaMetodosPago] = useState([]);
